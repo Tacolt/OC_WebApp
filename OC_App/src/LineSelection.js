@@ -12,9 +12,9 @@ class LineSelection extends Component {
 		return(
 			<div className="LineSelection">
 				<select id="soflow">
-					<option>Apple</option>
-					<option>Banana</option>
-					<option>Orange</option>
+					<option>Berkshire</option>
+					<option>Oakridge</option>
+					<option>Duration</option>
 				</select>
 			</div>
 		);
