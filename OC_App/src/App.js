@@ -1,36 +1,37 @@
 import React, {Component} from 'react';
+var $ = require('jquery')
 import './App.css';
-import HelloWorld from './HelloWorld';
-//import LineSelection from './LineSelection';
 import SimpleSlider from './ImageSlider';
 
-class App extends Component {
-
+export default class UserList extends React.Component {
   constructor(props) {
-  	super(props);
-  	
+    super(props);
+
+    this.state = {person: []};
+  }
+  componentDidMount() {
+    this.UserList();
+  }
+
+  UserList() {
+    return $.getJSON('https://mdms.owenscorning.com/api/v1/product/shingles?zip=43659')
+      .then((data) => {
+        this.setState({ person: data });
+      });
   }
 
   render() {
-  	return (
-    <div>
-    	<br/>
-    	<SimpleSlider name="https://dcpd6wotaa0mb.cloudfront.net/mdms/uploads/shingle_colors/swatch_768x768s/000/000/136/original/PYS_Berk_CanterburyBlack_768x768_72dpi.jpg?1476293729"/>
+    const persons = this.state.person.map((item, i) => {
+      return <div>
+        <h1>{item.name}</h1>
+        <span>{item.shingle_colors.swatch_image_url}</span>
+      </div>
+    });
+
+    return <div id="layout-content" className="layout-content-wrapper">
+      <div className="panel-list">{ persons }</div>
     </div>
-    );
   }
+}
 
-  handleLineChange(){
-
-  }
-
-  handleTextChange(){
-  	
-  }
-
-  handleImageChange(){
-
-  }
-};
-
-export default App;
+//export default App;
