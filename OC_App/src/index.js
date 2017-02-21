@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import ShingleList from './App';
-import './index.css';
+import React from 'react';		  //+React Module
+import ReactDOM from 'react-dom'; //+ReactDOM Module
+import ShingleList from './App';  //+ShingleList Component
+import './index.css';			  //+Index.css
 
 ReactDOM.render(
-  <ShingleList />, //Renders ShingleList component to screen
+  <ShingleList />, //Render -- imported from App.js
   document.getElementById('root')
 );

@@ -1,23 +1,30 @@
-import React, {Component} from 'react';
-import './App.css';
-import './ImageSlider.css';
-import SimpleSlider from './ImageSlider';
-var $ = require('jquery')
+//Dev: Colt Thompson
+//File: App.js
+//Repo: https://github.com/Tacolt/OC_WebApp.git
 
+import React, {Component} from 'react';   //+React Module
+import SimpleSlider from './ImageSlider'; //+SimpleSlider Component
+var $ = require('jquery')				  //+jquery Module
+import './App.css';						  //+App.css
+import './ImageSlider.css';				  //+ImageSlider.css
+
+//**ShingleList Component -- exports to Index.js
 export default class ShingleList extends React.Component {
 
+  //**Constructor(props) -- default constructor 
+  constructor(props) {
+    super(props);
+    this.state = {shingle: []};
+    this.change = this.change.bind(this);
+  }
+
+  //**GetInitialState -- gets the initial value for the line
   getInitialState() {
   	return
   		value: 'berkshire';
   }
    
-  //
-  constructor(props) {
-    super(props);
-    this.state = {shingle: []};
-    this.change = this.change.bind(this);
-    
-  }
+  //**ComponentDidMount() -- todo
   componentDidMount() {
     this.ShingleList();
   }
@@ -30,11 +37,12 @@ export default class ShingleList extends React.Component {
       });
   }
 
+  //**change() -- used to change lineName onChange of <select>
   change(event){
   	this.setState({value: event.target.value});
   }
 
-  //**RENDER() -- renders elements to screen
+  //**Render() -- renders elements to screen
   render() {
 
   	//**Map() -- creates new array from shingle array
@@ -44,17 +52,14 @@ export default class ShingleList extends React.Component {
       </div>
     });
 
-    
-
-    
-
-    //Displays Line Name + Color Name
+    //Selection Box + Displays current selection -- gets API info correctly for selection box, but had issues with displaying due to parsing issue
     return <div>
       <div>
 
       	  <div><h1>{this.state.value}</h1></div>
+
           <select className="soflow" onChange={this.change} value={this.state.value}>
-            <option value={lineName[0]}>{lineName[0]}</option>
+            <option value='berkshire'>{lineName[0]}</option>
             <option value='devonshire'>{lineName[1]}</option>
             <option value='durationSTORM'>{lineName[2]}</option>
             <option value='durationCOOL'>{lineName[3]}</option>
@@ -63,11 +68,10 @@ export default class ShingleList extends React.Component {
             <option value='oakridge'>{lineName[6]}</option>
             <option value='supreme'>{lineName[7]}</option>
           </select>
-
-          
-        </div>
+       </div>
        <br/>
-       <SimpleSlider/>
+
+       <SimpleSlider />
 
     </div>
   }

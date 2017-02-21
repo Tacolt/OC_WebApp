@@ -1,3 +1,5 @@
+//**NOTE -- IGNORE this file and HelloWorld.css, simply a learning tool/reference for me
+
 import React, {Component} from 'react';
 import './HelloWorld.css';
 

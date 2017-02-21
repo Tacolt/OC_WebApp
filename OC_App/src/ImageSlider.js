@@ -1,29 +1,35 @@
-import React, {Component} from 'react';
-var Slider = require('react-slick');
-var $ = require('jquery');
-import './ImageSlider.css';
-import './slick.css';
+//Dev: Colt Thompson
+//File: App.js
+//Repo: https://github.com/Tacolt/OC_WebApp.git
+
+import React, {Component} from 'react'; //+React Module
+var Slider = require('react-slick');    //+React-Slick Module
+var $ = require('jquery');              //+jquery Module
+import './ImageSlider.css';             //+ImageSlider.css
+import './slick.css';                   //+Slick.css
 
 //react-slick -- (node_module)
 class SimpleSlider extends React.Component {
 
+  //**Constructor(props) -- default constructor 
+  constructor(props) {
+    super(props);
+    this.state = {shingle: []};
+    this.nextColor = this.nextColor.bind(this); //todo
+  }
+
+  //**GetInitialState -- gets the initial value for the line
   getInitialState() {
     return
         value: ' '; 
   }
 
-
-  constructor(props) {
-    super(props);
-    this.state = {shingle: []};
-    this.nextColor = this.nextColor.bind(this);
-    //this.previousColor = this.previousColor.bind(this);
-  }
-
+  //**ComponentDidMount() -- etc.
   componentDidMount() {
     this.ShingleList();
   }
 
+  //**ShingleList() -- gets API data stores in shingle prop
   ShingleList() {
     return $.getJSON('https://mdms.owenscorning.com/api/v1/product/shingles?zip=43659')
       .then((data) => {
@@ -31,17 +37,34 @@ class SimpleSlider extends React.Component {
       });
   }
 
+  //todo
   nextColor(event){
      this.setState({value: event.target.value});
   }
 
+  //todo
   nextColor(event){
      this.setState({value: event.target.value});
   }
-
+  
+  //**Render() -- renders elements to screen
   render() {
 
-    //react-slick -- (node_module) -- Settings: refer to package site for properties
+    //**Map() -- creates new 'colorName' array from shingle array
+    const colorName = this.state.shingle.map((item, i) => {
+      return <div>
+        <h1>{item.shingle_colors[0].name}</h1>
+      </div>
+    });
+
+    //**Map() -- creates new 'lineName' array from shingle array
+    const swatchURL = this.state.shingle.map((item, i) => {
+      return <div>
+        <h1>{item.shingle_colors[0].swatch_image_url}</h1>
+      </div>
+    });
+
+    //react-slick(node_module) -- Settings: refer to package site for properties
     var settings = {
       dots: false,
       infinite: true,
@@ -49,23 +72,11 @@ class SimpleSlider extends React.Component {
       slidesToScroll: 3,
     }
 
-    //Maps shingle line name to lineName
-    const colorName = this.state.shingle.map((item, i) => {
-      return <div>
-        <h1>{item.shingle_colors[0].name}</h1>
-      </div>
-    });
-
-    const swatchURL = this.state.shingle.map((item, i) => {
-      return <div>
-        <h1>{item.shingle_colors[0].swatch_image_url}</h1>
-      </div>
-    });
-
-    //react-slick -- (node_module)
+    //react-slick(node_module) -- Below is the image slider and list of shingle color images. Had trouble with parsing API data so images are not displaying...
     return (
       <div>
-        <h1>{this.state.value}</h1>
+
+        <div><h3>{colorName[0]}</h3></div>
         <Slider>
           <div><img className="sliderImage" src={swatchURL[0]}/></div>
           <div><img className="sliderImage" src={swatchURL[1]}/></div>
@@ -107,8 +118,5 @@ class SimpleSlider extends React.Component {
     );
   }
 }
-
-
-
 
 export default SimpleSlider
