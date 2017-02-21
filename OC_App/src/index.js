@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import UserList from './App';
+import ShingleList from './App';
 import './index.css';
 
 ReactDOM.render(
-  <UserList />,
+  <ShingleList />, //Renders ShingleList component to screen
   document.getElementById('root')
 );
